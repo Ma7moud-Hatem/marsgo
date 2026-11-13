@@ -16,7 +16,7 @@
         │  geology.geojson    roughness.png                │
         │  minerals.geojson   hazard.npy                   │
         │  dem.tif            stations.geojson             │
-        │  weather_snapshot   route_cache.json             │
+        │  weather_snapshot   meta.json                   │
         └──────────────────────┬───────────────────────────┘
                                │  local reads only at runtime
                                ▼
@@ -61,13 +61,13 @@ lon 77.24 → 77.52
 lat 18.38 → 18.53
 ```
 
-At CTX z12 (~5 m/px) this is roughly 2,900 × 1,800 px — one cached basemap,
+At CTX z12 (~4.8 m/px) this is roughly 2,700 × 1,500 px — one cached basemap,
 no tile fetching at runtime.
 
 ## 4. Terrain pipeline
 
 1. Export DEM for the box at the highest available resolution (200 m source).
-2. Upsample to the 5 m route grid with bilinear interpolation.
+2. Upsample to the 10 m route grid with bilinear interpolation.
 3. Compute slope in degrees with `numpy.gradient`, accounting for Mars radius
    (3,396,190 m) and latitude scaling in longitude.
 4. Compute roughness from the CTX basemap: local standard deviation (e.g. 9×9
@@ -79,11 +79,12 @@ cost = 1.0
 cost += 3.0 * norm(slope)
 cost += 2.5 * norm(roughness)
 cost[slope > 15] += 8.0
-cost[slope > 25] = np.inf
+cost[slope > 22] = np.inf     # mapped no-go (25° is the absolute suit limit)
 cost[manual_hazard] = np.inf
 ```
 
-6. Save `slope.npy`, `roughness.npy`, `cost.npy` for instant routing.
+6. Save `slope.npy`, `roughness.npy`, `elevation.npy` for instant routing and
+   profile sampling. The cost surface is rebuilt in-process on first use.
 
 The DEM is coarse; the roughness layer carries the human-scale signal. The UI
 states this explicitly on the Terrain panel.
@@ -108,7 +109,9 @@ path, cost = route_through_array(
 - True length and elevation gain are computed **after** smoothing.
 
 Route cache key: `(start, tuple(stations), objective, speed, hazard_version)`.
-Persist to `data/processed/route_cache.json` so repeated demo clicks are instant.
+Route results are memoized in-process with `st.cache_data` keyed by
+`(station order, speed)`, so repeated demo clicks are instant. A persistent
+route cache is intentionally not used at this scale.
 
 ## 6. Suit model
 
@@ -166,7 +169,7 @@ If a layer exceeds budget, downsample the PNG, not the science.
 | DEM export fails | Slope from synthetic/flat surface + warn in UI |
 | Geology query too large | Clip to bbox + simplify geometry |
 | Weather API down | `weather_snapshot.json` with timestamp |
-| Route grid too big | 10 m grid instead of 5 m |
+| Route grid too big | 20 m grid instead of 10 m |
 
 ## 10. What we are deliberately not building
 

@@ -30,15 +30,16 @@ a clear **GO / NO-GO** verdict.
 
 ## Core features (MVP today)
 
-1. **Hyperlocal Jezero map** — 5 m/px CTX basemap, USGS Jezero geologic map,
-   CRISM/OMEGA mineral detections, THEMIS thermal, MOLA/HRSC terrain.
+1. **Hyperlocal Jezero map** — 4.83 m/px CTX basemap, USGS Jezero geologic map,
+   CRISM/OMEGA spectral context (including an explicit null result in this AOI),
+   and MOLA/HRSC terrain.
 2. **Terrain-costed routing** — least-cost path over slope + surface roughness,
    with hard no-go limits (steep slopes, rough terrain, manual hazards).
 3. **Suit & consumable model** — walk time, O₂, water, battery, walk-back reserve.
-4. **Radiation + weather** — surface GCR dose budget, live/near-live atmospheric
+4. **Radiation + weather** — surface GCR dose budget, cached atmospheric
    conditions, dust and thermal risk windows.
 5. **Heritage stations** — waypoints Perseverance actually visited, with sol
-   provenance and point-of-view imagery.
+   provenance, HiRISE close-ups, and Mastcam-Z point-of-view imagery.
 6. **GO / NO-GO panel** — the tool is allowed to say "this EVA is not safe."
 
 ## Stack
@@ -55,19 +56,58 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
+Open <http://localhost:8501>. No network is used at runtime.
+
+### Docker
+
+```bash
+docker build -t marsgo .
+docker run --rm -p 8501:8501 marsgo
+```
+
+### Verify before deploying
+
+```bash
+.venv/bin/python scripts/smoke_test.py
+```
+
+## Hosting
+
+The recommended path is **Streamlit Community Cloud** (free, HTTPS, deploys
+from this GitHub repo), with Hugging Face Spaces as backup and local
+`streamlit run app.py` as the offline guarantee.
+
+See **[`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)** for the full plan, host
+comparison, pre-flight checklist, and demo-day runbook.
+
+## Rebuild the data cache
+
+The app reads only cached files. To refresh them from the live NASA/USGS
+services:
+
+```bash
+.venv/bin/python scripts/fetch_data.py
+.venv/bin/python scripts/build_layers.py
+```
+
 ## Repository map
 
 ```
 app.py                  Streamlit field app
-src/                    terrain, routing, suit model, data loaders
-scripts/                one-shot NASA data pipeline (writes data/)
-data/raw/               cached GeoJSON from NASA/USGS services
+src/                    terrain, routing, suit model, data, weather, UI
+scripts/                one-shot NASA data pipeline + smoke test
+data/raw/               cached GeoJSON/JSON from NASA/USGS services
 data/processed/         basemap, slope, roughness, hazard rasters
+data/stations/          HiRISE station close-ups
+assets/waypoints/       Perseverance POV images + sol metadata
 docs/PLAN.md            full project & science plan
 docs/DATA_SOURCES.md    every endpoint, verified
 docs/ARCHITECTURE.md    how the system is built
+docs/DEPLOYMENT.md      hosting plan and runbook
 docs/ROADMAP.md         hour-by-hour build plan
 docs/DEMO_SCRIPT.md     3-minute judging demo
+Dockerfile              portable deployment image
+.github/workflows/      CI smoke test
 ```
 
 ## Data credits

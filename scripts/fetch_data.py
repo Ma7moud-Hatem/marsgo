@@ -386,7 +386,20 @@ def fetch_images(stations):
                 except Exception:  # noqa: BLE001
                     return 0
 
-            imgs.sort(key=area, reverse=True)
+            def rank(i):
+                """Prefer wide-field context cameras over telescopic close-ups."""
+                inst = str(i.get("camera", {}).get("instrument", ""))
+                if inst.startswith("MCZ"):
+                    pref = 3
+                elif "NAVCAM" in inst:
+                    pref = 2
+                elif "HAZCAM" in inst:
+                    pref = 1
+                else:
+                    pref = 0
+                return (pref, area(i))
+
+            imgs.sort(key=rank, reverse=True)
             path = None
             pick = None
             for candidate in imgs[:12]:
@@ -409,7 +422,10 @@ def fetch_images(stations):
                 continue
             meta = {
                 "sol": sol,
-                "camera": pick.get("camera", {}).get("model_type", "unknown"),
+                "camera": (pick.get("camera", {}).get("instrument")
+                           or pick.get("camera", {}).get("model_type", "unknown")),
+                "title": pick.get("title"),
+                "caption": (pick.get("caption") or "").strip()[:400],
                 "image_id": pick.get("imageid"),
                 "source": "NASA/JPL-Caltech Mars 2020 Perseverance raw images",
                 "url": url,

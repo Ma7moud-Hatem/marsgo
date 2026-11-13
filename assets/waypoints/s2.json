@@ -1,7 +1,9 @@
 {
  "sol": 1108,
- "camera": "unknown",
- "image_id": "LRF_1108_0765300116_388EBY_N0511904SCAM05108_0010I6J",
+ "camera": "MCZ_LEFT",
+ "title": "Mars Perseverance Sol 1108: Left Mastcam-Z Camera",
+ "caption": "NASA's Mars Perseverance rover acquired this image using its Left Mastcam-Z camera. Mastcam-Z is a pair of cameras located high on the rover's mast.\n\nThis image was acquired on April 2, 2024 (Sol 1108) at the local mean solar time of 14:58:14.",
+ "image_id": "ZL0_1108_0765311654_973EBY_N0512390ZCAM07114_0340LMJ",
  "source": "NASA/JPL-Caltech Mars 2020 Perseverance raw images",
- "url": "https://mars.nasa.gov/mars2020-raw-images/pub/ods/surface/sol/01108/ids/edr/browse/scam/LRF_1108_0765300116_388EBY_N0511904SCAM05108_0010I6J01_1200.jpg"
+ "url": "https://mars.nasa.gov/mars2020-raw-images/pub/ods/surface/sol/01108/ids/edr/browse/zcam/ZL0_1108_0765311654_973EBY_N0512390ZCAM07114_0340LMJ01_1200.jpg"
 }

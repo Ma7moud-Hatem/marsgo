@@ -89,7 +89,7 @@ The challenge asks for at least three data types. MarsGo uses **seven**.
 | 2 | Optical (ground) | Perseverance Mastcam-Z / Navcam | NASA Mars 2020 raw images | cm–m | Station POV cards |
 | 3 | Topographic | MOLA + HRSC blended DEM | NASA Mars Trek ImageServer | 200 m/px | Slope, elevation profile |
 | 4 | Geologic | Jezero crater & Nili Planum map | USGS Astrogeology | 1:25k-ish polygons | Unit contacts, station justification |
-| 5 | Spectral | Hydrous minerals (CRISM/OMEGA), chlorides (THEMIS) | Mars Trek MapServers | regional | Science target scoring |
+| 5 | Spectral | Hydrous minerals (CRISM/OMEGA), chlorides (THEMIS) | Mars Trek MapServers | regional | Science target scoring; this AOI returns a null detection |
 | 6 | Thermal | THEMIS thermal / surface temperature context | Mars Trek / THEMIS | regional | EVA thermal window |
 | 7 | Atmospheric | REMS/MSL weather + MEDA context | NASA Mars weather API | sol | Current conditions, dust risk |
 | 8 | Radiation | MSL RAD surface dose | NASA/JPL published | daily | Dose budget, SPE flag |
@@ -136,14 +136,14 @@ MVP = PLAN + WALK. DEBRIEF only if time allows.
 
 ### Cost surface
 
-Grid at 5 m/px over the mission box. Per cell:
+Grid at 10 m/px over the mission box. Per cell:
 
 ```
 cost = 1.0
      + 3.0 * slope_norm          # energy penalty
      + 2.5 * roughness_norm      # rock / scarp penalty
      + 8.0 * (slope > 15°)       # strong avoidance
-     + inf * (slope > 25°)       # hard no-go (suit fall risk)
+     + inf * (slope > 22°)       # mapped no-go (25° absolute suit limit)
      + inf * manual_hazard       # crew-marked no-go
 ```
 
@@ -193,7 +193,8 @@ The app shows **which constraint failed first** — that is the actionable part.
 
 Astronaut safety is the first judging criterion, so it gets its own panel:
 
-1. **Terrain** — slope > 25° no-go; 15–25° flagged; roughness hot spots flagged.
+1. **Terrain** — slope > 22° mapped no-go, 15–22° flagged, 25° absolute suit
+   limit; roughness hot spots flagged.
 2. **Radiation** — EVA dose + cumulative career tracking; solar particle event
    banner forces return-to-hab.
 3. **Thermal** — surface temperature and time-of-day; night EVA doubles heater

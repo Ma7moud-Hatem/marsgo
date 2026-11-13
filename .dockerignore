@@ -1,0 +1,30 @@
+.git
+.gitignore
+.github
+.venv
+venv
+__pycache__
+*.py[cod]
+*.egg-info
+.pytest_cache
+
+# The DEM TIFF is only needed to rebuild layers, not to run the app.
+data/raw/*.tif
+data/raw/*.tiff
+data/raw/*.img
+data/cache
+data/tmp
+data/raw/weather_raw.json
+
+# Development / editorial
+docs
+assets/tmp
+assets/fullres
+.playwright-mcp
+.streamlit/secrets.toml
+
+# OS
+.DS_Store
+Thumbs.db
+.vscode
+.idea

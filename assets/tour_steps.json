@@ -1,0 +1,24 @@
+{
+  "steps": [
+    {
+      "selector": "#mg-brand",
+      "title": "Welcome to MarsGo",
+      "content": "This app helps you plan EVA routes on Mars. Use the tour to learn the interface."
+    },
+    {
+      "selector": "#objective-select",
+      "title": "Select Science Objective",
+      "content": "Choose a scientific objective to tailor your route planning."
+    },
+    {
+      "selector": "#replay-tour",
+      "title": "Replay Tour",
+      "content": "Click here anytime to replay this guided tour."
+    },
+    {
+      "selector": "#help-button",
+      "title": "Help",
+      "content": "Access detailed help and glossary."
+    }
+  ]
+}

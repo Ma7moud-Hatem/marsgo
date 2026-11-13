@@ -13,6 +13,8 @@ import html
 import folium
 import streamlit as st
 from streamlit_folium import st_folium
+from streamlit_tour import st_tour
+import json, pathlib
 
 from src import data, routing, suit, terrain, ui, weather
 from src.config import (
@@ -29,7 +31,35 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
+
+# Initialize session state flags
+if "first_run" not in st.session_state:
+    st.session_state.first_run = True
+if "show_tour" not in st.session_state:
+    st.session_state.show_tour = False
+if "view_mode" not in st.session_state:
+    st.session_state.view_mode = "planner"
+
+# Auto‑launch tour on first run
+if st.session_state.first_run:
+    st.session_state.show_tour = True
 ui.inject_css(st)
+
+# Load guided tour steps
+tour_path = pathlib.Path(__file__).parent / "assets" / "tour_steps.json"
+with open(tour_path) as f:
+    tour_data = json.load(f)
+
+if st.session_state.show_tour:
+    st_tour(tour_data["steps"])
+    st.session_state.show_tour = False
+    st.session_state.first_run = False
+
+# Help view handling
+if st.session_state.view_mode == "help":
+    st.markdown("## Help & Glossary")
+    st.markdown("*Placeholder for detailed help and glossary content.*")
+    st.session_state.view_mode = "planner"
 
 
 # --------------------------------------------------------------------------
@@ -65,6 +95,15 @@ with st.sidebar:
         '<div class="tag">EVA planner</div></div>',
         unsafe_allow_html=True,
     )
+    # Help and tour controls
+    col1, col2 = st.columns([1, 1])
+    with col1:
+        if st.button("Replay Tour"):
+            st.session_state.show_tour = True
+    with col2:
+        if st.button("Help"):
+            st.session_state.view_mode = "help"
+    st.markdown("---")
     st.markdown('<div class="sect" style="margin-top:0">Science objective</div>',
                 unsafe_allow_html=True)
     objective = st.selectbox(

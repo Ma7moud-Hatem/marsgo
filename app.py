@@ -13,7 +13,16 @@ import html
 import folium
 import streamlit as st
 from streamlit_folium import st_folium
-from streamlit_tour import st_tour
+# Safely import streamlit_tour; provide fallback if unavailable
+try:
+    from streamlit_tour import st_tour
+except Exception:  # ImportError or StreamlitAPIException
+    def st_tour(*args, **kwargs):
+        """Fallback dummy tour function when streamlit_tour component cannot be loaded.
+        It displays a warning and does nothing else.
+        """
+        st.warning("Guided tour component unavailable; skipping tour.")
+        return None
 import json, pathlib
 
 from src import data, routing, suit, terrain, ui, weather
@@ -63,6 +72,7 @@ with open(tour_path) as f:
     tour_data = json.load(f)
 
 if st.session_state.show_tour:
+    # Attempt to render the tour; if fallback is active it will just warn.
     st_tour(tour_data["steps"])
     st.session_state.show_tour = False
     # Mark tour as completed on disk

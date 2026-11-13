@@ -1,0 +1,37 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Data — keep small committed caches, ignore huge intermediates
+data/raw/*.tif
+data/raw/*.tiff
+data/raw/*.img
+data/cache/
+data/tmp/
+!data/raw/dem_preview.png
+!data/raw/*.geojson
+!data/raw/*.json
+
+# Assets that are too large to commit
+assets/tmp/
+assets/fullres/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Playwright
+.playwright-mcp/

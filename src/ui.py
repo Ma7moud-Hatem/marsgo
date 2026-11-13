@@ -25,7 +25,8 @@ CSS = f"""
     font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
   }}
   .stApp {{ background: var(--bg); color: var(--text); }}
-  .block-container {{ padding-top: 0.9rem; padding-bottom: 1.2rem; max-width: 100%; }}
+  /* Clear Streamlit's 60 px toolbar so it never covers the MarsGo header. */
+  .block-container {{ padding-top: calc(3.75rem + 0.9rem); padding-bottom: 1.2rem; max-width: 100%; }}
   section[data-testid="stSidebar"] {{
     background: #101418;
     border-right: 1px solid var(--line);

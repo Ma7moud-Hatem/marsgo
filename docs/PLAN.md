@@ -1,4 +1,4 @@
-# TRAVERSE — Project Plan
+# MarsGo — Project Plan
 
 **Challenge:** Interplanetary Survival Guide: Martian Map
 **Team:** Mango's Gravity
@@ -21,7 +21,7 @@ What does **not** exist is the thing an astronaut needs at 07:00 on EVA morning:
 
 The challenge explicitly notes that current tools are built for **regional and
 global views**, not the hyperlocal areas astronauts will target. That is the
-opening. TRAVERSE is a hyperlocal **decision-support** layer, not another data
+opening. MarsGo is a hyperlocal **decision-support** layer, not another data
 viewer.
 
 ### Design principle
@@ -42,7 +42,7 @@ rediscover that corridor from scratch — but they cannot simply copy it either,
 because a rover can climb terrain and survive conditions a suited astronaut
 cannot.
 
-TRAVERSE takes the **rover's heritage corridor** as a prior, then re-plans it for
+MarsGo takes the **rover's heritage corridor** as a prior, then re-plans it for
 a walking human under suit constraints:
 
 - the rover's route is shown as context (proven trafficability);
@@ -81,7 +81,7 @@ plan rather than a walk.
 
 ## 3. Data layers
 
-The challenge asks for at least three data types. TRAVERSE uses **seven**.
+The challenge asks for at least three data types. MarsGo uses **seven**.
 
 | # | Type | Layer | Source | Resolution | Role in the app |
 |---|---|---|---|---|---|
@@ -95,7 +95,7 @@ The challenge asks for at least three data types. TRAVERSE uses **seven**.
 | 8 | Radiation | MSL RAD surface dose | NASA/JPL published | daily | Dose budget, SPE flag |
 
 **Honest limitation, stated in the UI:** the public global DEM is 200 m/px, so
-slope is a *regional* product. TRAVERSE compensates with a 5 m/px **surface
+slope is a *regional* product. MarsGo compensates with a 5 m/px **surface
 roughness** layer derived from CTX texture, which catches local rock fields and
 scarps that the DEM cannot resolve. The UI labels both, and the route cost
 combines them. This is a feature, not a hidden flaw: it shows we understand the
@@ -208,7 +208,7 @@ Astronaut safety is the first judging criterion, so it gets its own panel:
 
 ## 8. Judging alignment
 
-| Criterion | How TRAVERSE scores |
+| Criterion | How MarsGo scores |
 |---|---|
 | Use of NASA data | 7 data types, 6+ NASA missions, all real endpoints |
 | Science quality | Published USGS Jezero map + CRISM mineralogy + real rover stations |
@@ -219,7 +219,7 @@ Astronaut safety is the first judging criterion, so it gets its own panel:
 | Presentation | One mission, one route, one verdict, photo-verified stops |
 
 **The line we want judges to remember:**
-> "Mars Trek tells you what Mars looks like. TRAVERSE tells you whether you can
+> "Mars Trek tells you what Mars looks like. MarsGo tells you whether you can
 > walk there and back."
 
 ---

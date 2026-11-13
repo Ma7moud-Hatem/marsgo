@@ -11,7 +11,7 @@ network off (to prove the cache). Have a backup screen recording.
 > Crater. When humans arrive, they won't need a map of Mars. They'll need to
 > know one thing: **can I walk there and back today?**
 >
-> This is TRAVERSE."
+> This is MarsGo."
 
 Show the map: Jezero at 5 m/px, rover path visible, three station pins.
 
@@ -83,7 +83,7 @@ Tap **Station B**.
 ## 2:45 — Close (15 s)
 
 > "Mars Trek tells you what Mars looks like.
-> TRAVERSE tells you whether you can walk there and back.
+> MarsGo tells you whether you can walk there and back.
 >
 > The first Martians won't have streets. They'll have a traverse."
 

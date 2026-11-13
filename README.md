@@ -1,9 +1,9 @@
-# TRAVERSE — a suit-aware field map for Jezero Crater
+# MarsGo — Mango's Mars map
 
 > **NASA Space Apps Challenge 2026 — Interplanetary Survival Guide: Martian Map**
 > Team: **Mango's Gravity**
 
-TRAVERSE is a tablet field map for the first astronauts on Mars. It does not just
+MarsGo is a suit-aware tablet field map for the first astronauts on Mars. It does not just
 *display* Mars data — it turns layered NASA data into a **route an astronaut can
 actually walk**, then tells the crew whether that walk is survivable.
 
@@ -14,7 +14,7 @@ proved, on foot, to the delta front.
 
 ## The idea in one sentence
 
-Mars Trek is a library of Mars data. **TRAVERSE is the briefing room**: pick a
+Mars Trek is a library of Mars data. **MarsGo is the briefing room**: pick a
 science objective, and it produces a terrain-costed traverse with suit limits,
 hazard no-go zones, radiation dose, weather, and photo-verified waypoints — plus
 a clear **GO / NO-GO** verdict.
@@ -26,7 +26,7 @@ a clear **GO / NO-GO** verdict.
 | JPL Mars Trek | Global/regional layered map | Plan a walking EVA at 5 m scale |
 | USGS geologic maps | Authoritative geology | Connect geology to a route or a suit |
 | Rover raw images | Ground-level truth | Tie images to a planned station |
-| **TRAVERSE** | **Suit-aware route + hazards + science stops** | — |
+| **MarsGo** | **Suit-aware route + hazards + science stops** | — |
 
 ## Core features (MVP today)
 

@@ -70,7 +70,7 @@ plan rather than a walk.
 
 ### Why Jezero
 
-- Richest combined dataset of any Mars site: CTX at 5 m/px, HiRISE coverage,
+- Richest combined dataset of any Mars site: CTX at ~4.8 m/px, HiRISE coverage,
   full rover traverse, raw images, in-situ measurements.
 - A published **USGS geologic map of Jezero Crater and Nili Planum** with
   queryable unit polygons — a real, citable science layer.
@@ -85,7 +85,7 @@ The challenge asks for at least three data types. MarsGo uses **seven**.
 
 | # | Type | Layer | Source | Resolution | Role in the app |
 |---|---|---|---|---|---|
-| 1 | Optical | CTX mosaic basemap | Esri Astro / NASA CTX | ~5 m/px | Navigation basemap |
+| 1 | Optical | CTX mosaic basemap | Esri Astro / NASA CTX | ~4.8 m/px | Navigation basemap |
 | 2 | Optical (ground) | Perseverance Mastcam-Z / Navcam | NASA Mars 2020 raw images | cm–m | Station POV cards |
 | 3 | Topographic | MOLA + HRSC blended DEM | NASA Mars Trek ImageServer | 200 m/px | Slope, elevation profile |
 | 4 | Geologic | Jezero crater & Nili Planum map | USGS Astrogeology | 1:25k-ish polygons | Unit contacts, station justification |
@@ -95,7 +95,7 @@ The challenge asks for at least three data types. MarsGo uses **seven**.
 | 8 | Radiation | MSL RAD surface dose | NASA/JPL published | daily | Dose budget, SPE flag |
 
 **Honest limitation, stated in the UI:** the public global DEM is 200 m/px, so
-slope is a *regional* product. MarsGo compensates with a 5 m/px **surface
+slope is a *regional* product. MarsGo compensates with a 4.8 m/px **surface
 roughness** layer derived from CTX texture, which catches local rock fields and
 scarps that the DEM cannot resolve. The UI labels both, and the route cost
 combines them. This is a feature, not a hidden flaw: it shows we understand the
@@ -267,7 +267,7 @@ Astronaut safety is the first judging criterion, so it gets its own panel:
 ## 11. Success definition
 
 At demo time, a judge can:
-1. See Jezero at 5 m/px with geology and minerals.
+1. See Jezero at ~4.8 m/px with geology and minerals.
 2. Pick a science objective.
 3. Watch a route appear that avoids a visible scarp.
 4. Read a GO/NO-GO with a specific reason.

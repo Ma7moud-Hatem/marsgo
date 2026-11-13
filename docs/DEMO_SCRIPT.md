@@ -108,7 +108,7 @@ It has no concept of a suit, a reserve, or a walk-back. We consume its data and
 add the decision layer.
 
 **"Your DEM is only 200 m/px. How can you route safely?"**
-Correct — and the UI says so. That's why we add a 5 m/px roughness layer from
+Correct — and the UI says so. That's why we add a 4.8 m/px roughness layer from
 CTX texture and hard no-go thresholds. For flight, we would ingest HiRISE
 stereo DTMs; the architecture already supports swapping the DEM.
 

@@ -34,12 +34,24 @@ st.set_page_config(
 
 # Initialize session state flags
 if "first_run" not in st.session_state:
-    st.session_state.first_run = True
+    # Persist tour completion beyond session using a file marker
+    tour_marker = pathlib.Path(__file__).parent / ".tour_completed"
+    st.session_state.first_run = not tour_marker.exists()
 if "show_tour" not in st.session_state:
     st.session_state.show_tour = False
 if "view_mode" not in st.session_state:
     st.session_state.view_mode = "planner"
 
+# Sidebar controls (moved above tour rendering)
+col1, col2 = st.columns([1, 1])
+with col1:
+    st.markdown("<div id='replay-tour'></div>", unsafe_allow_html=True)
+    if st.button("Replay Tour"):
+        st.session_state.show_tour = True
+with col2:
+    st.markdown("<div id='help-button'></div>", unsafe_allow_html=True)
+    if st.button("Help"):
+        st.session_state.view_mode = "help"
 # Auto‑launch tour on first run
 if st.session_state.first_run:
     st.session_state.show_tour = True
@@ -53,13 +65,25 @@ with open(tour_path) as f:
 if st.session_state.show_tour:
     st_tour(tour_data["steps"])
     st.session_state.show_tour = False
+    # Mark tour as completed on disk
+    tour_marker = pathlib.Path(__file__).parent / ".tour_completed"
+    tour_marker.touch()
     st.session_state.first_run = False
 
 # Help view handling
 if st.session_state.view_mode == "help":
     st.markdown("## Help & Glossary")
-    st.markdown("*Placeholder for detailed help and glossary content.*")
-    st.session_state.view_mode = "planner"
+    st.markdown("""
+**Navigation**: Use the sidebar to select stations and options.
+**Tour**: Replay the guided tour anytime with the button above.
+
+**Glossary**
+- *sol*: Martian solar day (~24h 39m).
+- *EVA*: Extravehicular activity.
+- *Field mode*: Glove‑compatible UI for astronauts.
+""")
+    if st.button("Back to Planner"):
+        st.session_state.view_mode = "planner"
 
 
 # --------------------------------------------------------------------------
@@ -96,16 +120,13 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
     # Help and tour controls
-    col1, col2 = st.columns([1, 1])
-    with col1:
-        if st.button("Replay Tour"):
-            st.session_state.show_tour = True
-    with col2:
-        if st.button("Help"):
-            st.session_state.view_mode = "help"
+    # Sidebar buttons moved above tour rendering
     st.markdown("---")
     st.markdown('<div class="sect" style="margin-top:0">Science objective</div>',
                 unsafe_allow_html=True)
+    # Placeholder for tour selector
+    st.markdown("<div id='objective-select'></div>", unsafe_allow_html=True)
+    st.markdown("<div id='objective-select'></div>", unsafe_allow_html=True)
     objective = st.selectbox(
         "Science objective", list(OBJECTIVES), label_visibility="collapsed",
     )

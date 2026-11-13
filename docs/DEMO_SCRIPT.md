@@ -13,7 +13,7 @@ network off (to prove the cache). Have a backup screen recording.
 >
 > This is MarsGo."
 
-Show the map: Jezero at 5 m/px, rover path visible, three station pins.
+Show the map: Jezero at 4.8 m/px, rover path visible, three station pins.
 
 ---
 
@@ -21,11 +21,14 @@ Show the map: Jezero at 5 m/px, rover path visible, three station pins.
 
 Toggle, one at a time:
 
-1. **CTX optical** — "5 metre per pixel. This is the ground truth."
+1. **CTX optical** — "4.8 metres per pixel. This is the ground truth."
 2. **USGS geology** — "A published geologic map of Jezero, queryable, not a
    screenshot."
-3. **CRISM/OMEGA minerals** — "Orbital spectroscopy says clays are here."
-4. **Slope + roughness** — "Terrain the crew can and cannot cross."
+3. **Slope + no-go terrain** — "Terrain the crew can and cannot cross."
+4. **Roughness** — "A 4.8 m/px texture proxy for rocks the 200 m DEM can't see."
+5. **CRISM/OMEGA context** — "We ingested the spectral layer too. Inside this
+   AOI it returns a null detection — which is itself a science result the crew
+   can ground-truth."
 
 > "Seven data types from six NASA missions. But layers are not a plan."
 
@@ -34,18 +37,21 @@ Toggle, one at a time:
 ## 0:50 — The route (45 s)
 
 Select objective: **Delta front stratigraphy**.
-Select stations: **Heritage A, B, C** (Perseverance sols).
+Select stations: **Heritage A, B, C** (Perseverance sols 1042, 1108, 1170).
 Press **Plan traverse**.
 
-- Route animates/appears, clearly bending around the scarp.
-- Call out the rover path: "That's the robot's proven corridor. The blue line is
-  the human route — shorter, but only where the suit can handle it."
+- Route appears, clearly hugging the rover's proven corridor outbound.
+- Call out the rover path: "That's the robot's proven corridor. The cyan line is
+  the human route — it uses the corridor, but only where the suit can handle it."
 
 Read the stats:
-> "4.8 km, 2 h 10 min, 96 m of ascent, max sustained slope 14°."
+> "4.1 km round trip, 2 h 57 min, 84 m of ascent, 6.9° sustained slope, peak
+> 7.5°. Zero no-go samples on the line."
 
-Point at the hazard layer:
-> "The straight line would have crossed a 27° scarp. The router refuses to."
+Point at the return leg:
+> "The direct walk home is 1.1 km. The router takes 2.0 km instead, because the
+> straight line clips no-go terrain. It is refusing a shortcut a human might
+> take."
 
 ---
 
@@ -53,30 +59,35 @@ Point at the hazard layer:
 
 Point at the big **GO** badge and the constraint table.
 
-> "Time: 63% of the cap. O₂: 54% with a 25% walk-back reserve. Dose: 0.06 mSv,
-> 0.01% of the career limit. Verdict: GO."
+> "Time: 49% of the 6-hour cap. O₂: 27% used, 73% left. Water: 18% used.
+> Walk-back reserve: 51%. Dose: 0.088 mSv, 0.01% of the career limit.
+> Verdict: GO."
 
 Now drag EVA duration down to 2 hours.
 
-> "Same route, less slack. Now the reserve constraint fails first — and the tool
-> tells us *which* constraint, not just 'no'. That's the difference between a
-> map and a decision tool."
+> "Same route, less slack. Now the duration constraint fails first — and the
+> tool tells us *which* constraint, not just 'no'. That's the difference between
+> a map and a decision tool."
 
-Switch to NO-GO.
+Switch to NO-GO. For a second failure mode, toggle **Dust-storm hold** or
+**Solar particle event**.
 
 ---
 
 ## 2:15 — The station (30 s)
 
-Tap **Station B**.
+Choose **Station B** in the Station detail panel.
 
-- Orbital close-up + Perseverance POV image.
-- "Perseverance stood here on sol 700. The crew sees exactly what the rover saw
+- Orbital HiRISE close-up + Perseverance Mastcam-Z image.
+- "Perseverance stood here on sol 1108. The crew sees exactly what the rover saw
   before they take a step."
-- Science card: unit name from the USGS map, mineral signature, sample priority,
+- Science card: unit name from the USGS map, spectral context, sample priority,
   dwell time.
 
 > "Every stop is ground-truthed before the crew leaves the habitat."
+
+Optional 10 s: toggle **Field mode** to show the glove-friendly next-waypoint
+card: `W 259° · 609 m · max slope 1.9°`.
 
 ---
 
